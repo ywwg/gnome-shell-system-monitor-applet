@@ -2233,7 +2233,7 @@ const Powerlimit = class SystemMonitor_Powerlimit extends ElementBase {
         super({
             elt: 'powerlimit',
             item_name: _('Powerlimit'),
-            color_name: ['wattager']
+            color_name: ['wattage']
         });
         this.max = 100;
 
@@ -2241,11 +2241,11 @@ const Powerlimit = class SystemMonitor_Powerlimit extends ElementBase {
         this.wattage = '-- ';
         this.display_error = true;
         this.tip_format('W');
-        Schema.connect('changed::' + this.elt + '-sensor-file', this.refresh.bind(this));
+        Schema.connect('changed::' + this.elt + '-file', this.refresh.bind(this));
         this.update();
     }
     refresh() {
-        let sfile = Schema.get_string(this.elt + '-sensor-file');
+        let sfile = Schema.get_string(this.elt + '-file');
         if (GLib.file_test(sfile, GLib.FileTest.EXISTS)) {
             let file = Gio.file_new_for_path(sfile);
             file.load_contents_async(null, (source, result) => {
@@ -2259,8 +2259,7 @@ const Powerlimit = class SystemMonitor_Powerlimit extends ElementBase {
 
     }
     _apply() {
-        this.text_items[0].text = this.menu_items[0].text = this.wattage();
-        this.temp_over_threshold = this.wattage > Schema.get_int('thermal-threshold');
+        this.text_items[0].text = this.menu_items[0].text = this.wattage_text();
         this.vals = [this.wattage];
         this.tip_vals[0] = this.wattage_text();
         this.text_items[1].text = this.menu_items[1].text = 'W';
@@ -2293,7 +2292,7 @@ const Powerlimit = class SystemMonitor_Powerlimit extends ElementBase {
         ];
     }
     wattage_text() {
-        return wattage.toString();
+        return this.wattage.toString();
     }
 }
 

@@ -272,14 +272,14 @@
     </key>
 
     <key name="powerlimit-display" type="b">
-      <default>false</default>
-      <summary>Display thermal</summary>
-      <description>Set to false to remove thermal display in status bar</description>
+      <default>true</default>
+      <summary>Display powerlimit</summary>
+      <description>Set to false to remove powerlimit display in status bar</description>
     </key>
     <key name="powerlimit-refresh-time" type="i">
       <default>5000</default>
       <summary>powerlimit refresh time</summary>
-      <description>Time in ms between 2 refresh of thermal</description>
+      <description>Time in ms between 2 refresh of powerlimit</description>
     </key>
     <key name="powerlimit-graph-width" type="i">
       <default>100</default>
@@ -288,19 +288,19 @@
     </key>
     <key name="powerlimit-show-text" type="b">
       <default>true</default>
-      <summary>Display 'thermal'</summary>
-      <description>Set to true to show 'thermal' before thermal display</description>
+      <summary>Display 'powerlimit'</summary>
+      <description>Set to true to show 'powerlimit' before powerlimit display</description>
     </key>
     <key name="powerlimit-show-menu" type="b">
       <default>true</default>
       <summary>Display Temps In Menu</summary>
-      <description>Set to true to show thermal in pop-up menu</description>
+      <description>Set to true to show powerlimit in pop-up menu</description>
     </key>
     <key name="powerlimit-style" enum="org.gnome.shell.extensions.system-monitor.display-style">
-      <default>'graph'</default>
+      <default>'digit'</default>
       <summary>Choose the display style.</summary>
     </key>
-    <key name="powerlimit-sensor-file" type="s">
+    <key name="powerlimit-file" type="s">
       <default>'/sys/devices/virtual/powercap/intel-rapl-mmio/intel-rapl-mmio:0/constraint_0_power_limit_uw'</default>
       <summary>Sensor File</summary>
       <description>Location of the sensor file for cpu temp</description>
@@ -450,8 +450,8 @@
       <description>Set to true to show temperature in Fahrenheit</description>
     </key>
     <key name="powerlimit-wattage-color" type="s">
-      <default>'#f2002e'</default>
-      <summary>Color of user thermal in the chart</summary>
+      <default>'#00f22e'</default>
+      <summary>Color of user powerlimit in the chart</summary>
     </key>
     <key name="background" type="s">
       <default>'#ffffff16'</default>

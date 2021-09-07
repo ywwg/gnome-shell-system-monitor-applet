@@ -144,7 +144,7 @@ function build_menu_info() {
 
     let menu_info_box_table = new St.Widget({
         style: 'padding: 10px 0px 10px 0px; spacing-rows: 10px; spacing-columns: 15px;',
-        layout_manager: new Clutter.GridLayout({orientation: Clutter.Orientation.VERTICAL})
+        layout_manager: new Clutter.GridLayout({ orientation: Clutter.Orientation.VERTICAL })
     });
     let menu_info_box_table_layout = menu_info_box_table.layout_manager;
 
@@ -176,7 +176,7 @@ function build_menu_info() {
         row_index++;
     }
     if (shell_Version < '3.36') {
-        tray_menu._getMenuItems()[0].actor.get_last_child().add(menu_info_box_table, {expand: true});
+        tray_menu._getMenuItems()[0].actor.get_last_child().add(menu_info_box_table, { expand: true });
     } else {
         tray_menu._getMenuItems()[0].actor.get_last_child().add_child(menu_info_box_table);
     }
@@ -284,31 +284,45 @@ const smStyleManager = class SystemMonitor_smStyleManager {
 
 const smDialog = class SystemMonitor_smDialog extends ModalDialog.ModalDialog {
     constructor() {
-        super({styleClass: 'prompt-dialog'});
-        let mainContentBox = new St.BoxLayout({style_class: 'prompt-dialog-main-layout',
-            vertical: false});
+        super({ styleClass: 'prompt-dialog' });
+        let mainContentBox = new St.BoxLayout({
+            style_class: 'prompt-dialog-main-layout',
+            vertical: false
+        });
         this.contentLayout.add(mainContentBox,
-            {x_fill: true,
-                y_fill: true});
+            {
+                x_fill: true,
+                y_fill: true
+            });
 
-        let messageBox = new St.BoxLayout({style_class: 'prompt-dialog-message-layout',
-            vertical: true});
+        let messageBox = new St.BoxLayout({
+            style_class: 'prompt-dialog-message-layout',
+            vertical: true
+        });
         mainContentBox.add(messageBox,
-            {y_align: St.Align.START});
+            { y_align: St.Align.START });
 
-        this._subjectLabel = new St.Label({style_class: 'prompt-dialog-headline',
-            text: _('System Monitor Extension')});
+        this._subjectLabel = new St.Label({
+            style_class: 'prompt-dialog-headline',
+            text: _('System Monitor Extension')
+        });
 
         messageBox.add(this._subjectLabel,
-            {y_fill: false,
-                y_align: St.Align.START});
+            {
+                y_fill: false,
+                y_align: St.Align.START
+            });
 
-        this._descriptionLabel = new St.Label({style_class: 'prompt-dialog-description',
-            text: MESSAGE});
+        this._descriptionLabel = new St.Label({
+            style_class: 'prompt-dialog-description',
+            text: MESSAGE
+        });
 
         messageBox.add(this._descriptionLabel,
-            {y_fill: true,
-                y_align: St.Align.START});
+            {
+                y_fill: true,
+                y_align: St.Align.START
+            });
 
 
         this.setButtons([
@@ -325,7 +339,7 @@ const smDialog = class SystemMonitor_smDialog extends ModalDialog.ModalDialog {
 
 const Chart = class SystemMonitor_Chart {
     constructor(width, height, parent) {
-        this.actor = new St.DrawingArea({style_class: Style.get('sm-chart'), reactive: false});
+        this.actor = new St.DrawingArea({ style_class: Style.get('sm-chart'), reactive: false });
         this.parentC = parent;
         this.width = width;
         let themeContext = St.ThemeContext.get_for_stage(global.stage);
@@ -463,7 +477,7 @@ const smMountsMonitor = class SystemMonitor_smMountsMonitor {
         let mount_lines = this._volumeMonitor.get_mounts();
         mount_lines.forEach((mount) => {
             if ((!this.is_net_mount(mount) || ENABLE_NETWORK_DISK_USAGE) &&
-                 !this.is_ro_mount(mount)) {
+                !this.is_ro_mount(mount)) {
                 let mpath = mount.get_root().get_path() || mount.get_default_location().get_path();
                 if (mpath) {
                     this.mounts.push(mpath);
@@ -547,7 +561,7 @@ const smMountsMonitor = class SystemMonitor_smMountsMonitor {
 const Graph = class SystemMonitor_Graph {
     constructor(width, height) {
         this.menu_item = '';
-        this.actor = new St.DrawingArea({style_class: Style.get('sm-chart'), reactive: false});
+        this.actor = new St.DrawingArea({ style_class: Style.get('sm-chart'), reactive: false });
         this.width = width;
         this.height = height;
         this.gtop = new GTop.glibtop_fsusage();
@@ -573,9 +587,9 @@ const Graph = class SystemMonitor_Graph {
         this.actor.connect('repaint', this._draw.bind(this));
     }
     create_menu_item() {
-        this.menu_item = new PopupMenu.PopupBaseMenuItem({reactive: false});
+        this.menu_item = new PopupMenu.PopupBaseMenuItem({ reactive: false });
         if (shell_Version < '3.36') {
-            this.menu_item.actor.add(this.actor, {span: -1, expand: true});
+            this.menu_item.actor.add(this.actor, { span: -1, expand: true });
         } else {
             this.menu_item.actor.add_child(this.actor);
         }
@@ -781,11 +795,11 @@ const TipMenu = class SystemMonitor_TipMenu extends PopupMenu.PopupMenuBase {
         }
         let monitor = Main.layoutManager.findMonitorForActor(this.sourceActor);
         let [x, y] = [sourceTopLeftX + contentbox.x1,
-            sourceTopLeftY + contentbox.y1];
+        sourceTopLeftY + contentbox.y1];
         let [cx, cy] = [sourceTopLeftX + (contentbox.x1 + contentbox.x2) / 2,
-            sourceTopLeftY + (contentbox.y1 + contentbox.y2) / 2];
+        sourceTopLeftY + (contentbox.y1 + contentbox.y2) / 2];
         let [xm, ym] = [sourceTopLeftX + contentbox.x2,
-            sourceTopLeftY + contentbox.y2];
+        sourceTopLeftY + contentbox.y2];
         let [width, height] = this.actor.get_size();
         let tipx = cx - width / 2;
         tipx = Math.max(tipx, monitor.x);
@@ -817,7 +831,7 @@ const TipMenu = class SystemMonitor_TipMenu extends PopupMenu.PopupMenuBase {
 
 const TipBox = class SystemMonitor_TipBox {
     constructor() {
-        this.actor = new St.BoxLayout({reactive: true});
+        this.actor = new St.BoxLayout({ reactive: true });
         this.actor._delegate = this;
         this.set_tip(new TipMenu(this.actor));
         this.in_to = this.out_to = 0;
@@ -975,8 +989,10 @@ const ElementBase = class SystemMonitor_ElementBase extends TipBox {
                 });
         }
 
-        this.label = new St.Label({text: this.elt === 'memory' ? _('mem') : _(this.elt),
-            style_class: Style.get('sm-status-label')});
+        this.label = new St.Label({
+            text: this.elt === 'memory' ? _('mem') : _(this.elt),
+            style_class: Style.get('sm-status-label')
+        });
         change_text.call(this);
         Schema.connect('changed::' + this.elt + '-show-text', change_text.bind(this));
 
@@ -1010,11 +1026,11 @@ const ElementBase = class SystemMonitor_ElementBase extends TipBox {
         for (let i = 0; i < this.color_name.length; i++) {
             let tipline = new TipItem();
             this.tipmenu.addMenuItem(tipline);
-            tipline.actor.add(new St.Label({text: _(this.color_name[i])}));
-            this.tip_labels[i] = new St.Label({text: ''});
+            tipline.actor.add(new St.Label({ text: _(this.color_name[i]) }));
+            this.tip_labels[i] = new St.Label({ text: '' });
             tipline.actor.add(this.tip_labels[i]);
 
-            this.tip_unit_labels[i] = new St.Label({text: unit[i]});
+            this.tip_unit_labels[i] = new St.Label({ text: unit[i] });
             tipline.actor.add(this.tip_unit_labels[i]);
             this.tip_vals[i] = 0;
         }
@@ -1253,25 +1269,30 @@ const Battery = class SystemMonitor_Battery extends ElementBase {
         return [
             new St.Icon({
                 gicon: Gio.icon_new_for_string(this.icon),
-                style_class: Style.get('sm-status-icon')}),
+                style_class: Style.get('sm-status-icon')
+            }),
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-status-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: this.get_battery_unit(),
                 style_class: Style.get('sm-perc-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: this.get_battery_unit(),
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
     destroy() {
@@ -1397,7 +1418,7 @@ const Cpu = class SystemMonitor_Cpu extends ElementBase {
         let percent = 0;
         if (this.cpuid === -1) {
             percent = Math.round(((100 * this.total_cores) - this.usage[3]) /
-                                 this.total_cores);
+                this.total_cores);
         } else {
             percent = Math.round((100 - this.usage[3]));
         }
@@ -1410,7 +1431,7 @@ const Cpu = class SystemMonitor_Cpu extends ElementBase {
         // Not to be confusing
         other = Math.max(0, other);
         this.vals = [this.usage[0], this.usage[1],
-            this.usage[2], this.usage[4], other];
+        this.usage[2], this.usage[4], other];
         for (let i = 0; i < 5; i++) {
             this.tip_vals[i] = Math.round(this.vals[i]);
         }
@@ -1433,20 +1454,24 @@ const Cpu = class SystemMonitor_Cpu extends ElementBase {
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-status-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: '%', style_class: Style.get('sm-perc-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: '%',
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
 }
@@ -1547,48 +1572,60 @@ const Disk = class SystemMonitor_Disk extends ElementBase {
         return [
             new St.Label({
                 text: _('R'),
-                style_class: Style.get('sm-status-label')}),
+                style_class: Style.get('sm-status-label')
+            }),
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-disk-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: Style.diskunits(),
                 style_class: Style.get('sm-disk-unit-label'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: _('W'),
-                style_class: Style.get('sm-status-label')}),
+                style_class: Style.get('sm-status-label')
+            }),
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-disk-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: Style.diskunits(),
                 style_class: Style.get('sm-disk-unit-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: Style.diskunits(),
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: _('R'),
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: Style.diskunits(),
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: ' ' + _('W'),
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
 }
@@ -1646,20 +1683,24 @@ const Freq = class SystemMonitor_Freq extends ElementBase {
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-big-status-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: 'MHz', style_class: Style.get('sm-perc-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: 'MHz',
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
 }
@@ -1712,10 +1753,10 @@ const Mem = class SystemMonitor_Mem extends ElementBase {
         if (this.useGiB) {
             if (number < 1) {
                 // examples: 0.01, 0.10, 0.88
-                return number.toLocaleString(Locale, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                return number.toLocaleString(Locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
             // examples: 5.85, 16.0, 128
-            return number.toLocaleString(Locale, {minimumSignificantDigits: 3, maximumSignificantDigits: 3});
+            return number.toLocaleString(Locale, { minimumSignificantDigits: 3, maximumSignificantDigits: 3 });
         }
 
         return number.toLocaleString(Locale);
@@ -1744,10 +1785,12 @@ const Mem = class SystemMonitor_Mem extends ElementBase {
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-status-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: '%', style_class: Style.get('sm-perc-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
@@ -1758,18 +1801,24 @@ const Mem = class SystemMonitor_Mem extends ElementBase {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: '%',
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
-            new St.Label({text: unit,
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-value')
+            }),
+            new St.Label({
+                text: unit,
+                style_class: Style.get('sm-label')
+            })
         ];
     }
 }
@@ -1933,48 +1982,60 @@ const Net = class SystemMonitor_Net extends ElementBase {
         return [
             new St.Icon({
                 icon_size: 2 * IconSize / 3 * Style.iconsize(),
-                icon_name: 'go-down-symbolic'}),
+                icon_name: 'go-down-symbolic'
+            }),
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-net-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: _('KiB/s'),
                 style_class: Style.get('sm-net-unit-label'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Icon({
                 icon_size: 2 * IconSize / 3 * Style.iconsize(),
-                icon_name: 'go-up-symbolic'}),
+                icon_name: 'go-up-symbolic'
+            }),
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-net-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: _('KiB/s'),
                 style_class: Style.get('sm-net-unit-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: _('KiB/s'),
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: _(' ↓'),
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: _(' KiB/s'),
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: _(' ↑'),
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
 }
@@ -2019,10 +2080,10 @@ const Swap = class SystemMonitor_Swap extends ElementBase {
         if (this.useGiB) {
             if (number < 1) {
                 // examples: 0.01, 0.10, 0.88
-                return number.toLocaleString(Locale, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                return number.toLocaleString(Locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
             // examples: 5.85, 16.0, 128
-            return number.toLocaleString(Locale, {minimumSignificantDigits: 3, maximumSignificantDigits: 3});
+            return number.toLocaleString(Locale, { minimumSignificantDigits: 3, maximumSignificantDigits: 3 });
         }
 
         return number.toLocaleString(Locale);
@@ -2050,11 +2111,13 @@ const Swap = class SystemMonitor_Swap extends ElementBase {
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-status-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: '%',
                 style_class: Style.get('sm-perc-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
@@ -2065,19 +2128,24 @@ const Swap = class SystemMonitor_Swap extends ElementBase {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: '%',
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: _(unit),
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
 }
@@ -2127,21 +2195,25 @@ const Thermal = class SystemMonitor_Thermal extends ElementBase {
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-status-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: this.temperature_symbol(),
                 style_class: Style.get('sm-temp-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: this.temperature_symbol(),
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
     temperature_text() {
@@ -2153,6 +2225,75 @@ const Thermal = class SystemMonitor_Thermal extends ElementBase {
     }
     temperature_symbol() {
         return this.fahrenheit_unit ? '°F' : '°C';
+    }
+}
+
+const Powerlimit = class SystemMonitor_Powerlimit extends ElementBase {
+    constructor() {
+        super({
+            elt: 'powerlimit',
+            item_name: _('Powerlimit'),
+            color_name: ['wattager']
+        });
+        this.max = 100;
+
+        this.item_name = _('Powerlimit');
+        this.wattage = '-- ';
+        this.display_error = true;
+        this.tip_format('W');
+        Schema.connect('changed::' + this.elt + '-sensor-file', this.refresh.bind(this));
+        this.update();
+    }
+    refresh() {
+        let sfile = Schema.get_string(this.elt + '-sensor-file');
+        if (GLib.file_test(sfile, GLib.FileTest.EXISTS)) {
+            let file = Gio.file_new_for_path(sfile);
+            file.load_contents_async(null, (source, result) => {
+                let as_r = source.load_contents_finish(result)
+                this.wattage = Math.round(parseInt(parse_bytearray(as_r[1])) / 1000000);
+            });
+        } else if (this.display_error) {
+            global.logError('error reading: ' + sfile);
+            this.display_error = false;
+        }
+
+    }
+    _apply() {
+        this.text_items[0].text = this.menu_items[0].text = this.wattage();
+        this.temp_over_threshold = this.wattage > Schema.get_int('thermal-threshold');
+        this.vals = [this.wattage];
+        this.tip_vals[0] = this.wattage_text();
+        this.text_items[1].text = this.menu_items[1].text = 'W';
+        this.tip_unit_labels[0].text = _('W');
+    }
+    create_text_items() {
+        return [
+            new St.Label({
+                text: '',
+                style_class: Style.get('sm-status-value'),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
+            new St.Label({
+                text: 'W',
+                style_class: Style.get('sm-temp-label'),
+                y_align: Clutter.ActorAlign.CENTER
+            })
+        ];
+    }
+    create_menu_items() {
+        return [
+            new St.Label({
+                text: '',
+                style_class: Style.get('sm-value')
+            }),
+            new St.Label({
+                text: 'W',
+                style_class: Style.get('sm-label')
+            })
+        ];
+    }
+    wattage_text() {
+        return wattage.toString();
     }
 }
 
@@ -2193,20 +2334,24 @@ const Fan = class SystemMonitor_Fan extends ElementBase {
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-status-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: _('rpm'), style_class: Style.get('sm-unit-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: _('rpm'),
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
 }
@@ -2244,7 +2389,7 @@ const Gpu = class SystemMonitor_Gpu extends ElementBase {
             let script = ['/bin/bash', path + '/gpu_usage.sh'];
 
             // Create subprocess and capture STDOUT
-            let proc = new Gio.Subprocess({argv: script, flags: Gio.SubprocessFlags.STDOUT_PIPE});
+            let proc = new Gio.Subprocess({ argv: script, flags: Gio.SubprocessFlags.STDOUT_PIPE });
             proc.init(null);
             // Asynchronously call the output handler when script output is ready
             proc.communicate_utf8_async(null, null, Lang.bind(this, this._handleOutput));
@@ -2253,7 +2398,7 @@ const Gpu = class SystemMonitor_Gpu extends ElementBase {
         }
     }
     _handleOutput(proc, result) {
-        let [ok, output, ] = proc.communicate_utf8_finish(result);
+        let [ok, output,] = proc.communicate_utf8_finish(result);
         if (ok) {
             this._readTemperature(output);
         } else {
@@ -2312,8 +2457,8 @@ const Gpu = class SystemMonitor_Gpu extends ElementBase {
             this.vals = [0, 0];
             this.tip_vals = [0, 0];
         } else {
-            // we subtract percentage from memory because we do not want memory to be 
-            // "accumulated" in the chart with utilization; these two measures should be 
+            // we subtract percentage from memory because we do not want memory to be
+            // "accumulated" in the chart with utilization; these two measures should be
             // independent
             this.vals = [this.percentage, this.mem / this.total * 100 - this.percentage];
             this.tip_vals = [Math.round(this.vals[0]), this.mem];
@@ -2334,11 +2479,13 @@ const Gpu = class SystemMonitor_Gpu extends ElementBase {
             new St.Label({
                 text: '',
                 style_class: Style.get('sm-status-value'),
-                y_align: Clutter.ActorAlign.CENTER}),
+                y_align: Clutter.ActorAlign.CENTER
+            }),
             new St.Label({
                 text: '%',
                 style_class: Style.get('sm-perc-label'),
-                y_align: Clutter.ActorAlign.CENTER})
+                y_align: Clutter.ActorAlign.CENTER
+            })
         ];
     }
     create_menu_items() {
@@ -2349,19 +2496,24 @@ const Gpu = class SystemMonitor_Gpu extends ElementBase {
         return [
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: '%',
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-label')}),
+                style_class: Style.get('sm-label')
+            }),
             new St.Label({
                 text: '',
-                style_class: Style.get('sm-value')}),
+                style_class: Style.get('sm-value')
+            }),
             new St.Label({
                 text: unit,
-                style_class: Style.get('sm-label')})
+                style_class: Style.get('sm-label')
+            })
         ];
     }
 }
@@ -2447,6 +2599,7 @@ function enable() {
         Main.__sm.elts.push(new Disk());
         Main.__sm.elts.push(new Gpu());
         Main.__sm.elts.push(new Thermal());
+        Main.__sm.elts.push(new Powerlimit());
         Main.__sm.elts.push(new Fan());
         Main.__sm.elts.push(new Battery());
 
@@ -2467,7 +2620,7 @@ function enable() {
 
         // The spacing adds a distance between the graphs/text on the top bar
         let spacing = Schema.get_boolean('compact-display') ? '1' : '4';
-        let box = new St.BoxLayout({style: 'spacing: ' + spacing + 'px;'});
+        let box = new St.BoxLayout({ style: 'spacing: ' + spacing + 'px;' });
         if (shell_Version < '3.36') {
             tray.actor.add_actor(box);
         } else {
@@ -2480,7 +2633,7 @@ function enable() {
         }
 
         // Build Menu Info Box Table
-        let menu_info = new PopupMenu.PopupBaseMenuItem({reactive: false});
+        let menu_info = new PopupMenu.PopupBaseMenuItem({ reactive: false });
         let menu_info_box = new St.BoxLayout();
         menu_info.actor.add(menu_info_box);
         Main.__sm.tray.menu.addMenuItem(menu_info, 0);

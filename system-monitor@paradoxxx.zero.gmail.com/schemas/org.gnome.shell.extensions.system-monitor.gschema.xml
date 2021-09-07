@@ -7,7 +7,7 @@
   <enum id="org.gnome.shell.extensions.system-monitor.disk-usage-style">
     <value value="0" nick="pie"/>
     <value value="1" nick="bar"/>
-    <value value="2" nick="none"/>       
+    <value value="2" nick="none"/>
   </enum>
   <schema id="org.gnome.shell.extensions.system-monitor" path="/org/gnome/shell/extensions/system-monitor/">
     <key name="icon-display" type="b">
@@ -270,6 +270,42 @@
       <summary>Thermal threshold</summary>
       <description>When the temprature passes the threshold, the text is set to red as an alert.</description>
     </key>
+
+    <key name="powerlimit-display" type="b">
+      <default>false</default>
+      <summary>Display thermal</summary>
+      <description>Set to false to remove thermal display in status bar</description>
+    </key>
+    <key name="powerlimit-refresh-time" type="i">
+      <default>5000</default>
+      <summary>powerlimit refresh time</summary>
+      <description>Time in ms between 2 refresh of thermal</description>
+    </key>
+    <key name="powerlimit-graph-width" type="i">
+      <default>100</default>
+      <summary>powerlimit graph width</summary>
+      <description>Graph width in pixel</description>
+    </key>
+    <key name="powerlimit-show-text" type="b">
+      <default>true</default>
+      <summary>Display 'thermal'</summary>
+      <description>Set to true to show 'thermal' before thermal display</description>
+    </key>
+    <key name="powerlimit-show-menu" type="b">
+      <default>true</default>
+      <summary>Display Temps In Menu</summary>
+      <description>Set to true to show thermal in pop-up menu</description>
+    </key>
+    <key name="powerlimit-style" enum="org.gnome.shell.extensions.system-monitor.display-style">
+      <default>'graph'</default>
+      <summary>Choose the display style.</summary>
+    </key>
+    <key name="powerlimit-sensor-file" type="s">
+      <default>'/sys/devices/virtual/powercap/intel-rapl-mmio/intel-rapl-mmio:0/constraint_0_power_limit_uw'</default>
+      <summary>Sensor File</summary>
+      <description>Location of the sensor file for cpu temp</description>
+    </key>
+
     <key name="fan-display" type="b">
       <default>false</default>
       <summary>Display fan</summary>
@@ -412,6 +448,10 @@
       <default>false</default>
       <summary>Display temperature in Fahrenheit</summary>
       <description>Set to true to show temperature in Fahrenheit</description>
+    </key>
+    <key name="powerlimit-wattage-color" type="s">
+      <default>'#f2002e'</default>
+      <summary>Color of user thermal in the chart</summary>
     </key>
     <key name="background" type="s">
       <default>'#ffffff16'</default>

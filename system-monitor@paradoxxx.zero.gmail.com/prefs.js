@@ -135,7 +135,7 @@ function check_sensors(sensor_type) {
  * @returns a new Box with settings specified by args
  */
 function box(args = {}) {
-    const options = { };
+    const options = {};
 
     if (typeof args.spacing !== 'undefined') {
         options.spacing = args.spacing;
@@ -178,9 +178,9 @@ function box(args = {}) {
 
 const ColorSelect = class SystemMonitor_ColorSelect {
     constructor(name) {
-        this.label = new Gtk.Label({label: name + _(':')});
+        this.label = new Gtk.Label({ label: name + _(':') });
         this.picker = new Gtk.ColorButton();
-        this.actor = box({horizontal: true, spacing: 5});
+        this.actor = box({ horizontal: true, spacing: 5 });
         this.actor.add(this.label);
         this.actor.add(this.picker);
         this.picker.set_use_alpha(true);
@@ -206,9 +206,9 @@ const ColorSelect = class SystemMonitor_ColorSelect {
 
 const IntSelect = class SystemMonitor_IntSelect {
     constructor(name) {
-        this.label = new Gtk.Label({label: name + _(':')});
+        this.label = new Gtk.Label({ label: name + _(':') });
         this.spin = new Gtk.SpinButton();
-        this.actor = box({horizontal: true, shouldPack: true, });
+        this.actor = box({ horizontal: true, shouldPack: true, });
         this.actor.add(this.label);
         this.actor.add(this.spin);
         this.spin.set_numeric(true);
@@ -224,10 +224,10 @@ const IntSelect = class SystemMonitor_IntSelect {
 
 const Select = class SystemMonitor_Select {
     constructor(name) {
-        this.label = new Gtk.Label({label: name + _(':')});
+        this.label = new Gtk.Label({ label: name + _(':') });
         // this.label.set_justify(Gtk.Justification.RIGHT);
         this.selector = new Gtk.ComboBoxText();
-        this.actor = box({horizontal: true, shouldPack: true, spacing: 5});
+        this.actor = box({ horizontal: true, shouldPack: true, spacing: 5 });
         this.actor.add(this.label);
         this.actor.add(this.selector);
     }
@@ -256,16 +256,16 @@ function set_string(combo, schema, name, _slist) {
 const SettingFrame = class SystemMonitor {
     constructor(name, schema) {
         this.schema = schema;
-        this.label = new Gtk.Label({label: name});
+        this.label = new Gtk.Label({ label: name });
 
-        this.vbox = box({horizontal: false, shouldPack: true, spacing: 20});
-        this.hbox0 = box({horizontal: true, shouldPack: true, spacing: 20});
-        this.hbox1 = box({horizontal: true, shouldPack: true, spacing: 20});
-        this.hbox2 = box({horizontal: true, shouldPack: true, spacing: 20});
-        this.hbox3 = box({horizontal: true, shouldPack: true, spacing: 20});
+        this.vbox = box({ horizontal: false, shouldPack: true, spacing: 20 });
+        this.hbox0 = box({ horizontal: true, shouldPack: true, spacing: 20 });
+        this.hbox1 = box({ horizontal: true, shouldPack: true, spacing: 20 });
+        this.hbox2 = box({ horizontal: true, shouldPack: true, spacing: 20 });
+        this.hbox3 = box({ horizontal: true, shouldPack: true, spacing: 20 });
 
         if (shellMajorVersion < 40) {
-            this.frame = new Gtk.Frame({border_width: 10});
+            this.frame = new Gtk.Frame({ border_width: 10 });
             this.frame.add(this.vbox);
         } else {
             this.frame = new Gtk.Frame({
@@ -341,18 +341,18 @@ const SettingFrame = class SystemMonitor {
 
         // hbox0
         if (config === 'display') {
-            let item = new Gtk.CheckButton({label: _('Display')});
+            let item = new Gtk.CheckButton({ label: _('Display') });
             this.hbox0.add(item);
             Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
         } else if (config === 'show-text') {
-            let item = new Gtk.CheckButton({label: _('Show Text')});
+            let item = new Gtk.CheckButton({ label: _('Show Text') });
             this.hbox0.add(item);
             Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
         } else if (config === 'show-menu') {
-            let item = new Gtk.CheckButton({label: _('Show In Menu')});
+            let item = new Gtk.CheckButton({ label: _('Show In Menu') });
             this.hbox0.add(item);
             Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
-        // hbox1
+            // hbox1
         } else if (config === 'refresh-time') {
             let item = new IntSelect(_('Refresh Time'));
             item.set_args(50, 100000, 1000, 5000);
@@ -372,7 +372,7 @@ const SettingFrame = class SystemMonitor {
                 set_enum(style, Schema, key);
             });
             // Schema.bind(key, item.selector, 'active', Gio.SettingsBindFlags.DEFAULT);
-        // hbox2
+            // hbox2
         } else if (config.match(/-color$/)) {
             let item = new ColorSelect(_(config.split('-')[0].capitalize()));
             item.set_value(this.schema.get_string(key));
@@ -414,21 +414,21 @@ const SettingFrame = class SystemMonitor {
             item.selector.connect('changed', function (combo) {
                 set_string(combo, Schema, key, _slist);
             });
-        // hbox3
+            // hbox3
         } else if (config === 'speed-in-bits') {
-            let item = new Gtk.CheckButton({label: _('Show network speed in bits')});
+            let item = new Gtk.CheckButton({ label: _('Show network speed in bits') });
             this.hbox3.add(item);
             Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
         } else if (config === 'individual-cores') {
-            let item = new Gtk.CheckButton({label: _('Display Individual Cores')});
+            let item = new Gtk.CheckButton({ label: _('Display Individual Cores') });
             this.hbox3.add(item);
             Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
         } else if (config === 'time') {
-            let item = new Gtk.CheckButton({label: _('Show Time Remaining')});
+            let item = new Gtk.CheckButton({ label: _('Show Time Remaining') });
             this.hbox3.add(item);
             Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
         } else if (config === 'hidesystem') {
-            let item = new Gtk.CheckButton({label: _('Hide System Icon')});
+            let item = new Gtk.CheckButton({ label: _('Hide System Icon') });
             this.hbox3.add(item);
             Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
         } else if (config === 'usage-style') {
@@ -445,7 +445,7 @@ const SettingFrame = class SystemMonitor {
                 set_enum(style, Schema, key);
             });
         } else if (config === 'fahrenheit-unit') {
-            let item = new Gtk.CheckButton({label: _('Display temperature in Fahrenheit')});
+            let item = new Gtk.CheckButton({ label: _('Display temperature in Fahrenheit') });
             this.hbox3.add(item);
             Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
         } else if (config === 'threshold') {
@@ -456,7 +456,7 @@ const SettingFrame = class SystemMonitor {
         }
         if (configParent.indexOf('gpu') !== -1 &&
             config === 'display') {
-            let item = new Gtk.Label({label: _('** Only Nvidia GPUs supported so far **')});
+            let item = new Gtk.Label({ label: _('** Only Nvidia GPUs supported so far **') });
             this.hbox3.add(item);
         }
         this._reorder();
@@ -465,7 +465,7 @@ const SettingFrame = class SystemMonitor {
 
 const App = class SystemMonitor_App {
     constructor() {
-        let setting_items = ['cpu', 'memory', 'swap', 'net', 'disk', 'gpu', 'thermal', 'fan', 'freq', 'battery'];
+        let setting_items = ['cpu', 'memory', 'swap', 'net', 'disk', 'gpu', 'thermal', 'powerlimit', 'fan', 'freq', 'battery'];
         let keys = Schema.list_keys();
 
         this.items = [];
@@ -476,9 +476,11 @@ const App = class SystemMonitor_App {
         });
 
         this.main_vbox = box({
-            hasBorder: true, horizontal: false, spacing: 10});
+            hasBorder: true, horizontal: false, spacing: 10
+        });
         this.hbox1 = box({
-            hasBorder: true, horizontal: true, shouldPack: true, spacing: 20});
+            hasBorder: true, horizontal: true, shouldPack: true, spacing: 20
+        });
         if (shellMajorVersion < 40) {
             this.main_vbox.pack_start(this.hbox1, false, false, 0);
         } else {
@@ -487,28 +489,28 @@ const App = class SystemMonitor_App {
 
         keys.forEach((key) => {
             if (key === 'icon-display') {
-                let item = new Gtk.CheckButton({label: _('Display Icon')});
+                let item = new Gtk.CheckButton({ label: _('Display Icon') });
                 this.items.push(item)
                 this.hbox1.add(item)
                 Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
             } else if (key === 'center-display') {
-                let item = new Gtk.CheckButton({label: _('Display in the Middle')})
+                let item = new Gtk.CheckButton({ label: _('Display in the Middle') })
                 this.items.push(item)
                 this.hbox1.add(item)
                 Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
             } else if (key === 'compact-display') {
-                let item = new Gtk.CheckButton({label: _('Compact Display')})
+                let item = new Gtk.CheckButton({ label: _('Compact Display') })
                 this.items.push(item)
                 this.hbox1.add(item)
                 Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
             } else if (key === 'show-tooltip') {
-                let item = new Gtk.CheckButton({label: _('Show tooltip')})
+                let item = new Gtk.CheckButton({ label: _('Show tooltip') })
                 item.set_active(Schema.get_boolean(key))
                 this.items.push(item)
                 this.hbox1.add(item)
                 Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
             } else if (key === 'move-clock') {
-                let item = new Gtk.CheckButton({label: _('Move the clock')})
+                let item = new Gtk.CheckButton({ label: _('Move the clock') })
                 this.items.push(item)
                 this.hbox1.add(item)
                 Schema.bind(key, item, 'active', Gio.SettingsBindFlags.DEFAULT);
